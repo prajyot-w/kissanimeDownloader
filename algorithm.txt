@@ -1,0 +1,84 @@
+Algorithm, Requirements and Notes:
+====================================
+
+Algorithm
+------------------
+#1 Take the link and offset as inputs
+#2 Load the link
+#3 Check if the content of loaded page has video tag or not
+#4 If not then pass
+#5 else grab the link that points to next page
+#6 grab the link that points the video
+#7 Download the video
+#8 Load the link pointing to next page
+#9 goto step 3 until finished
+
+
+Tools and Descriptions
+-------------------------------
+
+$1 Python module Beautiful Soup
+.................................
+Beautiful Soup lets you parse html pages and access all
+tags exactly the way you do using javascript. To import
+Beautiful Soup in your py code use following line.
+
+`from bs4 import BeautifulSoup`
+
+BeautifulSoup accepts only html strings. So be sure to
+convert the page into a string into a variable. Then you
+can pass that string to BeautifulSoup like this.
+
+`soup = BeautifulSoup(htmlString)`
+
+To find an elements, following syntax can be used.
+Consider you want to find a div tag with id of main
+you extract it like this.
+
+`element = soup.findAll('div',{'id':'main'})`
+
+To Access Children of an element use:
+
+`child = element.findChildren()[index]`
+
+To render the text inside the children use:
+
+`text = child.renderContents()`
+
+To Access Parent Element use:
+
+`parend = child.parent`
+
+$2 Python module webkit
+-----------------------------------
+This module allows you to imitate the behaviour
+of a browser. Import it useing:
+
+`import webkit`
+
+To create an instance use:
+
+`web = webkit.WebView()`
+
+To open a page use:
+
+`web.open('url')`
+
+You can make webkit execute a function when any
+browser even occurs. For example, if you want to
+simulate a behaviour when browser finishes loading
+page, use
+
+`web.connect('load-finished', functionName)`
+
+To read html of loaded page use:
+
+`html = web.get_main_frame().get_data_source().get_data()`
+
+To extract title of the page use:
+
+`title = web.get_title()`
+
+NOTE: Use urllib to download files.
+      Use re to replace spaces with underscores in filenames
+      Use "".strip() method to remove Trailing whitespaces
